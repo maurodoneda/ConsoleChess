@@ -17,12 +17,17 @@ namespace ConsoleChess.ChessBoard
             Columns = columns;
             Pieces = new Piece[lines,columns];
         }
-
-        
+                
 
         public Piece piece(int line, int column)
         {
             return Pieces [line, column];
+        }
+
+        public void putPiece(Piece p, Position pos)
+        {
+            Pieces[pos.Line, pos.Column] = p;
+            p.Position = pos;
         }
     }
 }
