@@ -31,6 +31,10 @@ namespace ConsoleChess.ChessBoard
 
         public void putPiece(Piece p, Position pos)
         {
+            if (existentPiece(pos))
+            {
+                throw new BoardException("There is already a piece in this position!");
+            }    
             Pieces[pos.Line, pos.Column] = p;
             p.Position = pos;
         }
