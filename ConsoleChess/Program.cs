@@ -15,7 +15,8 @@ namespace ConsoleChess
 
                 board.putPiece(new Tower(Color.Black, board), new Position(0, 0));
                 board.putPiece(new Tower(Color.Black, board), new Position(1, 3));
-                board.putPiece(new King(Color.Black, board), new Position(2, 4));
+                board.putPiece(new King(Color.White, board), new Position(2, 4));
+                board.putPiece(new King(Color.White, board), new Position(3, 5));
                 
 
                 Screen.PrintBoard(board);
