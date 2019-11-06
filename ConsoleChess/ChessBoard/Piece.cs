@@ -1,5 +1,5 @@
 ﻿
-namespace ConsoleChess.Board
+namespace ConsoleChess.ChessBoard
 {
     class Piece
     {

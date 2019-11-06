@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleChess.Board
+namespace ConsoleChess.ChessBoard
 {
     enum Color
     {
