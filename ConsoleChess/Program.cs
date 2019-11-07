@@ -20,11 +20,12 @@ namespace ConsoleChess
 
                     Console.WriteLine();
                     Console.Write("Move piece From: ");
-                    Position from = Screen.ReadChessBoardPosition().toPosition();
+                    Position from = Screen.ReadChessBoardPosition().ToPosition();
                     Console.Write("to: ");
-                    Position to = Screen.ReadChessBoardPosition().toPosition();
+                    Position to = Screen.ReadChessBoardPosition().ToPosition();
 
-                    play.executeMove(from, to);
+                    play.ExecuteMove(from, to);
+
                 }
 
                 Screen.PrintBoard(play.Board);

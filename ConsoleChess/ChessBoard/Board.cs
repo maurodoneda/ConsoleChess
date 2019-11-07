@@ -19,19 +19,19 @@ namespace ConsoleChess.ChessBoard
         }
                 
 
-        public Piece piece(int line, int column)
+        public Piece Piece(int line, int column)
         {
             return Pieces [line, column];
         }
 
-        public Piece piece(Position pos)
+        public Piece Piece(Position pos)
         {
             return Pieces[pos.Line, pos.Column];
         }
 
-        public void putPiece(Piece p, Position pos)
+        public void PutPiece(Piece p, Position pos)
         {
-            if (existentPiece(pos))
+            if (ExistentPiece(pos))
             {
                 throw new BoardException("There is already a piece in this position!");
             }    
@@ -40,13 +40,13 @@ namespace ConsoleChess.ChessBoard
         }
 
 
-        public Piece removePiece(Position pos)
+        public Piece RemovePiece(Position pos)
         {
-            if (piece(pos) == null)
+            if (Piece(pos) == null)
             {
                 return null;
             }
-            Piece aux = piece(pos);
+            Piece aux = Piece(pos);
             aux.Position = null;
             Pieces[pos.Line, pos.Column] = null;
             return aux;
@@ -55,13 +55,13 @@ namespace ConsoleChess.ChessBoard
         }
 
 
-        public bool existentPiece(Position pos)
+        public bool ExistentPiece(Position pos)
         {
-            validatePosition(pos);
-            return piece(pos) != null;
+            ValidatePosition(pos);
+            return Piece(pos) != null;
         }
 
-        public bool validPosition(Position pos)
+        public bool ValidPosition(Position pos)
         {
             if (pos.Line<0 || pos.Line>=Lines || pos.Column<0 || pos.Column >= Columns)
             {
@@ -70,9 +70,9 @@ namespace ConsoleChess.ChessBoard
             return true;
         }
 
-        public void validatePosition(Position pos)
+        public void ValidatePosition(Position pos)
         {
-            if (!validPosition(pos))
+            if (!ValidPosition(pos))
             {
                 throw new BoardException("Invalid Position");
             }

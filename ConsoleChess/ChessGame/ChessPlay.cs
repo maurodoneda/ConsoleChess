@@ -19,26 +19,26 @@ namespace ConsoleChess.ChessGame
             Turn = 1;
             CurrentPlayer = Color.White;
             GameOver = false;
-            putPiece();
+            PutPiece();
         }
 
-        public void executeMove(Position from, Position to)
+        public void ExecuteMove(Position from, Position to)
         {
-            Piece p = Board.removePiece(from);
-            p.sumQntMoves();
-            Board.removePiece(to);
-            Piece capturedPiece = Board.removePiece(to);
-            Board.putPiece(p, to);
+            Piece p = Board.RemovePiece(from);
+            p.SumQntMoves();
+            Board.RemovePiece(to);
+            Piece capturedPiece = Board.RemovePiece(to);
+            Board.PutPiece(p, to);
         }
 
-        private void putPiece()
+        private void PutPiece()
         {
-            Board.putPiece(new Tower(Color.Black, Board), new ChessBoardPosition('c', 1).toPosition());
-            Board.putPiece(new Tower(Color.White, Board), new ChessBoardPosition('c', 2).toPosition());
-            Board.putPiece(new Tower(Color.White, Board), new ChessBoardPosition('d', 2).toPosition());
-            Board.putPiece(new Tower(Color.White, Board), new ChessBoardPosition('e', 2).toPosition());
-            Board.putPiece(new Tower(Color.White, Board), new ChessBoardPosition('h', 7).toPosition());
-            Board.putPiece(new King(Color.Black, Board), new ChessBoardPosition('b', 5).toPosition());
+            Board.PutPiece(new Tower(Color.Black, Board), new ChessBoardPosition('c', 1).ToPosition());
+            Board.PutPiece(new Tower(Color.White, Board), new ChessBoardPosition('c', 2).ToPosition());
+            Board.PutPiece(new Tower(Color.White, Board), new ChessBoardPosition('d', 2).ToPosition());
+            Board.PutPiece(new Tower(Color.White, Board), new ChessBoardPosition('e', 2).ToPosition());
+            Board.PutPiece(new Tower(Color.White, Board), new ChessBoardPosition('h', 7).ToPosition());
+            Board.PutPiece(new King(Color.Black, Board), new ChessBoardPosition('b', 5).ToPosition());
             
         }
 

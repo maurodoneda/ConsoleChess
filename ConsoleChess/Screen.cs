@@ -15,13 +15,13 @@ namespace ConsoleChess
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < board.Columns; j++)
                 {
-                    if (board.piece(i, j) == null)
+                    if (board.Piece(i, j) == null)
                     {
                         Console.Write("- ");
                     }
                     else
                     {
-                        printPiece(board.piece(i, j));
+                        PrintPiece(board.Piece(i, j));
                         Console.Write(" ");
                     }
 
@@ -40,7 +40,7 @@ namespace ConsoleChess
             return new ChessBoardPosition(column, line);
         }
 
-        public static void printPiece(Piece piece)
+        public static void PrintPiece(Piece piece)
         {
             if (piece.Color == Color.White)
             {
