@@ -23,6 +23,42 @@ namespace ConsoleChess
 
             Console.WriteLine("  a b c d e f g h");
         }
+
+        public static void PrintGamePlay(ChessMatch play)
+        {
+            PrintBoard(play.Board);
+            Console.WriteLine();
+            PrintCapturedPieces(play);
+            Console.WriteLine();
+            Console.WriteLine("Turn: " + play.Turn);
+            Console.WriteLine("Waiting next move: " + play.CurrentPlayer);
+        }
+
+        public static void PrintCapturedPieces(ChessMatch play)
+        {
+            Console.WriteLine("Captured Pieces: ");
+            Console.Write("White: ");
+            PrintPieceSet(play.PiecesOffGame(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintPieceSet(play.PiecesOffGame(Color.Black));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+
+        }
+
+        public static void PrintPieceSet(HashSet<Piece> pieceSet)
+        {
+            Console.Write("[");
+            foreach (Piece x in pieceSet)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        }
+       
         public static void PrintBoard(Board board, bool[,] possibleMoves)
         {
             ConsoleColor originalBackground = Console.BackgroundColor;

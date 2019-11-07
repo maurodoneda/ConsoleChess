@@ -11,16 +11,15 @@ namespace ConsoleChess
         {
             try
             {
-                ChessPlay play = new ChessPlay();
+                ChessMatch play = new ChessMatch();
 
                 while (!play.GameOver)
                 {
                     try
                     {
                         Console.Clear();
-                        Screen.PrintBoard(play.Board);
-                        Console.WriteLine("Turn: " + play.Turn);
-                        Console.WriteLine("Waiting next move: " + play.CurrentPlayer);
+                        Screen.PrintGamePlay(play);
+                        
 
 
                         Console.WriteLine();
