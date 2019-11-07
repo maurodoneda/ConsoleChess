@@ -16,12 +16,36 @@ namespace ConsoleChess.ChessBoard
             QntMoves = 0;
         }
 
-        public abstract bool[,] PossibleMoves();
-                
 
         public void SumQntMoves()
         {
             QntMoves++;
+        }   
+                 
+        public bool IsPossibleToMove()
+        {
+            bool[,] matrix = PossibleMoves();
+            for (int i = 0; i < Board.Lines; i++)
+            {
+                for(int j = 0; j < Board.Columns; j++)
+                {
+                    if (matrix[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
+
+        public bool PossibleToMoveTo(Position pos)
+        {
+            return PossibleMoves()[pos.Line, pos.Column];
+        }
+
+
+        public abstract bool[,] PossibleMoves();
     }
+
 }

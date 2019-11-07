@@ -13,24 +13,37 @@ namespace ConsoleChess
             {
                 ChessPlay play = new ChessPlay();
 
-                while (!play.GameOver) 
+                while (!play.GameOver)
                 {
-                    Console.Clear();
-                    Screen.PrintBoard(play.Board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.PrintBoard(play.Board);
+                        Console.WriteLine("Turn: " + play.Turn);
+                        Console.WriteLine("Waiting next move: " + play.CurrentPlayer);
 
-                    Console.WriteLine();
-                    Console.Write("Move piece From: ");
-                    Position from = Screen.ReadChessBoardPosition().ToPosition();
 
-                    bool[,] possibleMoves = play.Board.Piece(from).PossibleMoves();
+                        Console.WriteLine();
+                        Console.Write("Move piece From: ");
+                        Position from = Screen.ReadChessBoardPosition().ToPosition();
+                        play.ValidatePositionFrom(from);
 
-                    Console.Clear();
-                    Screen.PrintBoard(play.Board, possibleMoves);
+                        bool[,] possibleMoves = play.Board.Piece(from).PossibleMoves();
 
-                    Console.Write("to: ");
-                    Position to = Screen.ReadChessBoardPosition().ToPosition();
+                        Console.Clear();
+                        Screen.PrintBoard(play.Board, possibleMoves);
 
-                    play.ExecuteMove(from, to);
+                        Console.Write("to: ");
+                        Position to = Screen.ReadChessBoardPosition().ToPosition();
+                        play.ValidatePositionTo(from, to);
+
+                        play.ExecutePlay(from, to);
+                    }
+                    catch (BoardException error)
+                    {
+                        Console.WriteLine(error.Message);
+                        Console.ReadLine();
+                    }
 
                 }
 
@@ -44,7 +57,7 @@ namespace ConsoleChess
 
             Console.WriteLine();
 
-                      
+
             Console.ReadLine();
 
 
