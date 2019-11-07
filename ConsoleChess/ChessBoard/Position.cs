@@ -18,7 +18,7 @@ namespace ConsoleChess.ChessBoard
         public void DefineValues(int line, int column)
         {
             Line = line;
-            Column = column
+            Column = column;
 
         }
 

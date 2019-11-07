@@ -21,6 +21,12 @@ namespace ConsoleChess
                     Console.WriteLine();
                     Console.Write("Move piece From: ");
                     Position from = Screen.ReadChessBoardPosition().ToPosition();
+
+                    bool[,] possibleMoves = play.Board.Piece(from).PossibleMoves();
+
+                    Console.Clear();
+                    Screen.PrintBoard(play.Board, possibleMoves);
+
                     Console.Write("to: ");
                     Position to = Screen.ReadChessBoardPosition().ToPosition();
 
