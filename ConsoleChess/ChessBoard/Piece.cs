@@ -15,5 +15,10 @@ namespace ConsoleChess.ChessBoard
             Board = board;
             QntMoves = 0;
         }
+
+        public void sumQntMoves()
+        {
+            QntMoves++;
+        }
     }
 }
