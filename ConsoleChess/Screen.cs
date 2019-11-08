@@ -31,10 +31,19 @@ namespace ConsoleChess
             PrintCapturedPieces(play);
             Console.WriteLine();
             Console.WriteLine("Turn: " + play.Turn);
-            Console.WriteLine("Waiting next move: " + play.CurrentPlayer);
-            if (play.Check)
+
+            if (!play.GameOver)
             {
-                Console.WriteLine("CHECK!!");
+                Console.WriteLine("Waiting next move: " + play.CurrentPlayer);
+                if (play.Check)
+                {
+                    Console.WriteLine("CHECK!!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("CHECK MATE!!");
+                Console.WriteLine("Winner: " + play.CurrentPlayer);
             }
             
         }

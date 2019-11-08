@@ -48,7 +48,8 @@ namespace ConsoleChess
 
                 }
 
-                Screen.PrintBoard(play.Board);
+                Console.Clear();
+                Screen.PrintGamePlay(play);
             }
 
             catch (BoardException e)
