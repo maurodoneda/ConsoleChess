@@ -20,8 +20,14 @@ namespace ConsoleChess.ChessBoard
         public void SumQntMoves()
         {
             QntMoves++;
-        }   
-                 
+        }
+
+        public void SubtractQntMoves()
+        {
+            QntMoves--;
+        }
+
+
         public bool IsPossibleToMove()
         {
             bool[,] matrix = PossibleMoves();

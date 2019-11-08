@@ -12,40 +12,71 @@ namespace ConsoleChess.ChessGame
         public int Turn { get; private set; }
         public Color CurrentPlayer { get; private set; }
         public bool GameOver { get; private set; }
-
-        public HashSet<Piece> Pieces { get; set; }
-        public HashSet<Piece> CapturedPieces { get; set; }
+        public HashSet<Piece> Pieces { get; private set; }
+        public HashSet<Piece> CapturedPieces { get; private set; }
+        public bool Check { get; private set; }
 
 
         public ChessMatch()
-        
+
         {
             Board = new Board(8, 8);
             Turn = 1;
             CurrentPlayer = Color.White;
             GameOver = false;
+            Check = false;
             Pieces = new HashSet<Piece>();
             CapturedPieces = new HashSet<Piece>();
             PutPiece();
         }
 
-        public void ExecuteMove(Position from, Position to)
+        public Piece ExecuteMove(Position from, Position to)
         {
             Piece p = Board.RemovePiece(from);
-            p.SumQntMoves();            
-            Piece capturedPiece = Board.RemovePiece(to);           
-            if(capturedPiece != null)
+            p.SumQntMoves();
+            Piece capturedPiece = Board.RemovePiece(to);
+            Board.PutPiece(p, to);
+            if (capturedPiece != null)
             {
                 CapturedPieces.Add(capturedPiece);
             }
 
-            Board.RemovePiece(to);
-            Board.PutPiece(p, to);
+            return capturedPiece;
         }
 
-        public void ExecutePlay(Position from , Position to)
+        public void UndoMove(Position from, Position to, Piece capturedPiece)
         {
-            ExecuteMove(from, to);
+            Piece p = Board.RemovePiece(to);
+            p.SubtractQntMoves();
+            if (capturedPiece != null)
+            {
+                Board.PutPiece(capturedPiece, to);
+                CapturedPieces.Remove(capturedPiece);
+            }
+
+            Board.PutPiece(p, from);
+
+        }
+
+        public void ExecutePlay(Position from, Position to)
+        {
+            Piece capturedPiece = ExecuteMove(from, to);
+            if (CheckTest(CurrentPlayer))
+            {
+                UndoMove(from, to, capturedPiece);
+                throw new BoardException("You can't put yourself in Check!");
+
+            }
+
+            if (CheckTest(Oponent(CurrentPlayer)))
+            {
+                Check = true;
+            }
+            else
+            {
+                Check = false;
+            }
+                       
             Turn++;
             ChangePlayer();
 
@@ -56,7 +87,7 @@ namespace ConsoleChess.ChessGame
             HashSet<Piece> aux = new HashSet<Piece>();
             foreach (Piece x in CapturedPieces)
             {
-                if(x.Color == color)
+                if (x.Color == color)
                 {
                     aux.Add(x);
                 }
@@ -80,13 +111,55 @@ namespace ConsoleChess.ChessGame
             return aux;
         }
 
+        private Color Oponent(Color color)
+        {
+            if (color == Color.White)
+            {
+                return Color.Black;
+            }
+            else
+            {
+                return Color.White;
+            }
+        }
+
+        private Piece King(Color color)
+        {
+            foreach (Piece x in PiecesInGame(color))
+            {
+                if (x is King)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
+        public bool CheckTest(Color color)
+        {
+            Piece K = King(color);
+            if (K == null)
+            {
+                throw new BoardException("There is no King " + color + " on the board!");
+            }
+            foreach (Piece x in PiecesInGame(Oponent(color)))
+            {
+                bool[,] matrix = x.PossibleMoves();
+                if (matrix[K.Position.Line, K.Position.Column])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void ValidatePositionFrom(Position pos)
         {
             if (Board.Piece(pos) == null)
             {
                 throw new BoardException("There is no piece on the chosen position!");
             }
-            if(CurrentPlayer != Board.Piece(pos).Color)
+            if (CurrentPlayer != Board.Piece(pos).Color)
             {
                 throw new BoardException("The chosen piece is not your to play!");
             }
@@ -108,7 +181,7 @@ namespace ConsoleChess.ChessGame
 
         private void ChangePlayer()
         {
-            if ( CurrentPlayer == Color.White)
+            if (CurrentPlayer == Color.White)
             {
                 CurrentPlayer = Color.Black;
             }
@@ -118,7 +191,7 @@ namespace ConsoleChess.ChessGame
             }
         }
 
-        public void PutNewPiece(char column,int line,Piece piece)
+        public void PutNewPiece(char column, int line, Piece piece)
         {
             Board.PutPiece(piece, new ChessBoardPosition(column, line).ToPosition());
             Pieces.Add(piece);
@@ -141,8 +214,8 @@ namespace ConsoleChess.ChessGame
             PutNewPiece('d', 8, new King(Color.Black, Board));
 
 
-            
-            
+
+
         }
 
     }

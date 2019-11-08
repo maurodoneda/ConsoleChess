@@ -28,9 +28,11 @@ namespace ConsoleChess
                         play.ValidatePositionFrom(from);
 
                         bool[,] possibleMoves = play.Board.Piece(from).PossibleMoves();
-
-                        Console.Clear();
+                        
+                        Console.Clear();   
+                        
                         Screen.PrintBoard(play.Board, possibleMoves);
+                                              
 
                         Console.Write("to: ");
                         Position to = Screen.ReadChessBoardPosition().ToPosition();
